@@ -3,10 +3,7 @@ from math import prod
 junctions = [tuple(map(int, line.strip().split(','))) for line in open('input8.txt').readlines()]
 
 dist = lambda p, q: sum((a - b) ** 2 for a, b in zip(p, q)) ** 0.5
-dists = []
-for i, p in enumerate(junctions):
-    for q in junctions[i+1:]:
-        dists.append((p, q, dist(p, q)))
+dists = [(p, q, dist(p, q)) for i, p in enumerate(junctions) for q in junctions[i+1:]]
 dists.sort(key=lambda x: x[2])
 
 G = Graph()
