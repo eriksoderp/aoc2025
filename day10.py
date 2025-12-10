@@ -11,7 +11,7 @@ def create_button(machine_length, button):
 def press_button(lights, button):
     return [l ^ b for l, b in zip(lights, button)]
 
-def dijkstra_part1(desired_lights, buttons):
+def dijkstra(desired_lights, buttons):
     lights = [0 for _ in range(len(desired_lights))]
     q = [(0, tuple(lights))]
     costs = defaultdict(lambda: float('inf'))
@@ -50,7 +50,7 @@ for machine in machines:
     desired_lights = [0 if c == '.' else 1 for c in machine[0] if c not in '[]']
     buttons = [create_button(len(desired_lights), button) for button in machine[1:-1]]
     desired_joltages = [int(c) for c in findall(r'-?\d+', machine[-1])]
-    p1 += dijkstra_part1(desired_lights, buttons)
+    p1 += dijkstra(desired_lights, buttons)
     p2 += solve_linear_equation(desired_joltages, buttons)
     
 print("Part 1:", p1)
